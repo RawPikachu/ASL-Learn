@@ -1,10 +1,9 @@
 <html>
     <head>
         <title>
-            Realtime Translation
+            Letter Check
         </title>
         <style>
-            /* Add your CSS styles here */
             body {
                 font-family: 'Arial', sans-serif;
                 background-color: #f7f9fc;
@@ -18,16 +17,41 @@
                 color: #333;
             }
             
+            .container {
+                background-color: #fff;
+                border-radius: 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+                max-width: 500px;
+                width: 100%;
+                animation: fadeIn 1s ease-in-out;
+            }
+            
             h1 {
                 font-size: 2.5rem;
                 color: #34a853;
                 margin-bottom: 1rem;
+                animation: slideIn 0.5s ease-in-out;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+                animation: slideIn 0.5s ease-in-out;
             }
             
             img {
                 width: 720px;
                 height: auto;
                 margin-bottom: 1rem;
+                animation: zoomIn 0.5s ease-in-out;
+            }
+            
+            .a-container {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
             }
             
             a {
@@ -39,6 +63,7 @@
                 font-size: 1rem;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
+                animation: fadeIn 1s ease-in-out;
                 text-decoration: none;
             }
             
@@ -63,10 +88,24 @@
         </style>
     </head>
     <body>
-        <h1>Realtime Translation</h1>
-        Do asl actions in front of the camera to get realtime translations to english
+        <h1 style="color: #34a853;">Practice Check</h1>
+        Please perform the letter A in ASL and get 90% accuracy to proceed.
         <img src="{{ url_for('video_feed') }}" width="100%">
         <br><br><br>
-        <a href='/'>Back</a>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            var checkCondition = function() {
+                $.getJSON("/check_prediction", function(data) {
+                    if (data.condition) {
+                        window.location.href = "/fufilled";
+                    }
+                });
+            };
+            
+            setTimeout(checkCondition, 1000)
+            setInterval(checkCondition, 100);
+        });
+        </script>
     </body>
 </html>

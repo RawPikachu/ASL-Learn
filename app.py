@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, jsonify
 import numpy as np
 import torch
 import cv2
@@ -12,16 +12,21 @@ app = Flask(__name__, static_folder="assets", static_url_path="/assets")
 
 model = torch.hub.load("ultralytics/yolov5", "custom", path="models/best.pt")
 
+results = None
+frame = None
+
 
 def gen_frames():
+    global results, frame
+
     while True:
         success, frame = camera.read()
 
         if not success:
             break
         else:
+            frame = cv2.flip(frame, 1)
             results = model(frame)
-            label, box = results.xyxyn[0][:, -1].numpy(), results.xyxyn[0][:, :-1].numpy()
             ret, buffer = cv2.imencode(".jpg", np.squeeze(results.render()))
             frame = buffer.tobytes()
             yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
@@ -42,6 +47,41 @@ def index():
 @app.route("/letters")
 def letters():
     return render_template("letters.html")
+
+
+@app.route("/words")
+def words():
+    return render_template("levelup.html")
+
+
+@app.route("/realtime")
+def realtime():
+    return render_template("realtime.html")
+
+
+@app.route("/letter_check")
+def letter_check():
+    return render_template("letter_check.html")
+
+
+@app.route("/check_prediction")
+def check_prediction():
+    condition = False
+
+    label, box = results.xyxyn[0][:, -1].numpy(), results.xyxyn[0][:, :-1].numpy()
+    for i in range(len(label)):
+        if label[i] == 0 and box[i][4] > 0.90:
+            condition = True
+
+    return jsonify(condition=condition)
+
+
+@app.route("/fufilled")
+def fufilled():
+    global results, frame
+    results = None
+    frame = None
+    return render_template("fufilled.html")
 
 
 if __name__ == "__main__":

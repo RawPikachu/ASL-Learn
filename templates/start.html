@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>
+            About this website
+        </title>
+    </head>
+    <body>
+        Click on the 'next' button to get started learning ASL. 
+        <br> Pay attention to the lessons as each lesson is followed by a quiz. Replicate the ASL signs as closely as possible to earn more points. 
+        <br> Practice everyday to earn streaks and compete with your friends on the leaderboard
+        <br> Choose if you want to get started with alphabets, words, common phrases, or if you want to translate something in real time!
+        <button id="nextButton">alphabets</button>
+        <button id="words">words</button>
+        <button id="words2">common phrases</button>
+
+        <script>
+            document.getElementById('nextButton').addEventListener('click', function() {
+                window.location.href = 'page2.html';
+            });
+            document.getElementById('words').addEventListener('click', function() {
+                window.location.href = 'words.html';
+            });
+            document.getElementById('words2').addEventListener('click', function() {
+                window.location.href = 'words.html';
+            });
+        </script>
+    </body>
+</html>

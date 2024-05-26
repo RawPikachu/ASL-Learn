@@ -1,9 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>page2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1 - A</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>PAGE 2 LESSON 1</h1>
-    Starting with the first letter of the alphabet
-</body>    
+    <div class="container">
+        <h1>LESSON 1 - A</h1>
+        <p>Starting with the first letter of the alphabet</p>
+        <img id="aslImage" src="../assets/A.png" alt="ASL Sign for A">
+        <div class="button-container">
+            <button id="home">Home</button>
+            <button id="next">Next</button>
+        </div>
+    </div>
+    <script>
+        // Event listener for the home button
+        document.getElementById('home').addEventListener('click', function() {
+            window.location.href = 'start.html';
+        });
+
+        // Event listener for the next button
+        document.getElementById('next').addEventListener('click', function() {
+            window.location.href = 'lesson2.html';
+        });
+    </script>
+</body>
 </html>

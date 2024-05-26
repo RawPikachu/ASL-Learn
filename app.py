@@ -84,5 +84,15 @@ def fufilled():
     return render_template("fufilled.html")
 
 
+@app.route("/leaderboard")
+def leaderboard():
+    return render_template("leaderboard.html")
+
+
+@app.route("/lettersB")
+def lettersB():
+    return render_template("lettersB.html")
+
+
 if __name__ == "__main__":
     app.run(debug=False, use_reloader=False)

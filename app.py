@@ -51,7 +51,7 @@ def letters():
 
 @app.route("/words")
 def words():
-    return render_template("levelup.html")
+    return render_template("words.html")
 
 
 @app.route("/realtime")

@@ -8,15 +8,14 @@ camera = cv2.VideoCapture(0)
 while not camera.isOpened():
     time.sleep(0.1)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="assets", static_url_path="/assets")
 
 model = torch.hub.load("ultralytics/yolov5", "custom", path="models/best.pt")
 
 
-def gen_frames():  # generate frame by frame from camera
+def gen_frames():
     while True:
-        # Capture frame-by-frame
-        success, frame = camera.read()  # read the camera frame
+        success, frame = camera.read()
 
         if not success:
             break
@@ -25,9 +24,7 @@ def gen_frames():  # generate frame by frame from camera
             label, box = results.xyxyn[0][:, -1].numpy(), results.xyxyn[0][:, :-1].numpy()
             ret, buffer = cv2.imencode(".jpg", np.squeeze(results.render()))
             frame = buffer.tobytes()
-            yield (
-                b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n"
-            )  # concat frame one by one and show result
+            yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 
 
 @app.route("/video_feed")
@@ -39,7 +36,12 @@ def video_feed():
 @app.route("/")
 def index():
     """Video streaming home page."""
-    return render_template("index.html")
+    return render_template("start.html")
+
+
+@app.route("/letters")
+def letters():
+    return render_template("letters.html")
 
 
 if __name__ == "__main__":

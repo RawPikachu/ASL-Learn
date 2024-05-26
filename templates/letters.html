@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About this website</title>
+    <title>Lesson 1 - A</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f7f9fc;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -16,7 +17,7 @@
             text-align: center;
             color: #333;
         }
-
+        
         .container {
             background-color: #fff;
             border-radius: 15px;
@@ -24,26 +25,36 @@
             padding: 2rem;
             max-width: 500px;
             width: 100%;
+            animation: fadeIn 1s ease-in-out;
         }
-
+        
         h1 {
             font-size: 2.5rem;
             color: #34a853;
             margin-bottom: 1rem;
+            animation: slideIn 0.5s ease-in-out;
         }
-
+        
         p {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
+            animation: slideIn 0.5s ease-in-out;
         }
-
+        
+        img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+            animation: zoomIn 0.5s ease-in-out;
+        }
+        
         .a-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
-
+        
         a {
             background-color: #34a853;
             color: #fff;
@@ -52,35 +63,39 @@
             padding: 1rem 2rem;
             font-size: 1rem;
             cursor: pointer;
-            margin: 0.5rem;
             transition: background-color 0.3s ease;
+            animation: fadeIn 1s ease-in-out;
             text-decoration: none;
         }
-
+        
         a:hover {
             background-color: #2c8c47;
         }
-
-        @media (min-width: 600px) {
-            .a-container {
-                flex-direction: row;
-            }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to ASL Learning</h1>
-        <p>
-            Click on the 'next' button to get started learning ASL.
-            <br> Pay attention to the lessons as each lesson is followed by a quiz. Replicate the ASL signs as closely as possible to earn more points.
-            <br> Practice everyday to earn streaks and compete with your friends on the leaderboard.
-            <br> Choose if you want to get started with alphabets, words, common phrases, or if you want to translate something in real time!
-        </p>
+        <h1>LESSON 1 - A</h1>
+        <p>Starting with the first letter of the alphabet</p>
+        <img id="aslImage" src="assets/A.png" alt="ASL Sign for A">
         <div class="a-container">
-            <a id="nextButton" href="/letters">Alphabets</a>
-            <a id="wordsButton" href="/words">Words</a>
-            <a id="realtime" href="/realtime">realtime translate</a>
+            <a id="home" href="/">Home</a>
+            <a id="next" href="/">Next</a>
         </div>
     </div>
 </body>
